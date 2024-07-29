@@ -21,7 +21,7 @@ mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 //Default Api
 app.get("/", (req, res) > {
 res.json("Hello");
-})
+});
 // Routes
 const authRoutes = require('./routes/auth');
 const supervisorRoutes = require('./routes/supervisors');
