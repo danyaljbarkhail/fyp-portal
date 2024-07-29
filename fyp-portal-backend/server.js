@@ -2,7 +2,7 @@ const express = require('express');
 const http = require('http');
 const socket = require('./socket');
 const app = require('./app');
-const PORT = 3000;
+const PORT = process.env.PORT || 3001;
 
 const server = http.createServer(app);
 const io = socket.init(server);
@@ -21,4 +21,6 @@ io.on('connection', (socket) => {
 
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+}).on('error', (err) => {
+  console.error('Server error:', err);
 });
