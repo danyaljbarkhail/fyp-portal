@@ -17,7 +17,10 @@ const MONGO_URI = 'mongodb+srv://danyaljk7:eL9wg8FlXK1x2WlC@fyp-portal.cq6coxu.m
 
 mongoose.connect(MONGO_URI)
   .then(() => console.log('MongoDB connected'))
-  .catch(err => console.error('MongoDB connection error:', err));
+  .catch(err => {
+    console.error('MongoDB connection error:', err);
+    process.exit(1); // Exit process with failure
+  });
 
 // JWT Secret
 const JWT_SECRET = 'your_jwt_secret'; // Replace with your actual JWT secret
