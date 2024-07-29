@@ -12,7 +12,7 @@ router.post('/register', async (req, res) => {
   try {
     const user = new User({ username, password, role });
     await user.save();
-    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
+    const token = jwt.sign({ id: user._id, role: user.role }, req.JWT_SECRET, { expiresIn: '1d' });
     res.status(201).json({ token });
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -35,7 +35,7 @@ router.post('/login', async (req, res) => {
     }
 
     // Generate JWT token with user id and role
-    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
+    const token = jwt.sign({ id: user._id, role: user.role }, req.JWT_SECRET, { expiresIn: '1d' });
 
     // Return token as JSON response
     res.json({ token });
@@ -54,7 +54,7 @@ router.post('/verify', async (req, res) => {
 
   try {
     // Verify token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, req.JWT_SECRET);
 
     // Fetch user details based on decoded token
     const user = await User.findById(decoded.id);
