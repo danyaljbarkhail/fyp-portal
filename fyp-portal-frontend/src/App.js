@@ -31,7 +31,7 @@ import axios from 'axios'
 axios.defaults.withCredentials = true;
 const handleSubmit = (e) => {
 e.preventDefault();
-axios.post('https://fyp-portal-server.vercel.app/', {username, password, role})
+axios.post('https://fyp-portal-server.vercel.app/register', {username, password, role})
 .then(result => console.log(result))
 .catch(err => console.log(err))
 }
