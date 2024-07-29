@@ -23,7 +23,7 @@ mongoose.connect(MONGO_URI)
   });
 
 // JWT Secret
-const JWT_SECRET = 'your_jwt_secret'; // Replace with your actual JWT secret
+const JWT_SECRET = 'd20dd387927d93890e6f90d2c0bdc7b168b8897b39a3a637998c18c9f763e11e9800c25a70b76469714964d6ced0a0b976ab3842a01b81cc0ba12a534520a69b'; // Replace with your actual JWT secret
 
 // Routes
 const authRoutes = require('./routes/auth');
