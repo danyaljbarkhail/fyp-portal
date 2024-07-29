@@ -2,7 +2,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const { protect, authorize } = require('../middleware/auth');
-const { getProfile, updateProfile } = require('../controllers/profileController');
+const { getProfile, updateProfile } = require('../Controllers/profileController');
 const router = express.Router();
 
 // Route to register a new user
