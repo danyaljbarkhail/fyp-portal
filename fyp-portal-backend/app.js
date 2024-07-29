@@ -7,7 +7,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'https://fyp-portal-client.vercel.app',
+  origin: process.env.FRONTEND_URL || 'https://fyp-portal-client.vercel.app', // Adjust the frontend URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
@@ -40,8 +40,12 @@ app.use('/api/admin', adminRoutes);
 
 // Error handler middleware
 app.use((err, req, res, next) => {
-  console.error(err.stack);
+  console.error('Error handler:', err.stack);
   res.status(500).send('Something broke!');
+});
+
+app.get('/', (req, res) => {
+  res.send('Server is running');
 });
 
 module.exports = app;
