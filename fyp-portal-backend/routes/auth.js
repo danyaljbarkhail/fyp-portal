@@ -13,6 +13,7 @@ router.post('/register', async (req, res) => {
 
   try {
     const user = new User({ username, password, role });
+    console.log('Saving user to database');
     await user.save();
     const token = jwt.sign({ id: user._id, role: user.role }, req.JWT_SECRET, { expiresIn: '1d' });
     res.status(201).json({ token });
@@ -32,11 +33,19 @@ router.post('/login', async (req, res) => {
   try {
     const user = await User.findOne({ username });
 
-    if (!user || !(await user.matchPassword(password))) {
+    if (!user) {
+      console.log('User not found');
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
+    const isMatch = await user.matchPassword(password);
+    if (!isMatch) {
+      console.log('Password does not match');
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
     if (user.role !== role) {
+      console.log('Role does not match');
       return res.status(403).json({ message: 'Role does not match' });
     }
 
@@ -59,6 +68,7 @@ router.post('/verify', async (req, res) => {
   console.log('Verifying token:', token);
 
   if (!token) {
+    console.log('No token provided');
     return res.status(401).json({ message: 'No token provided' });
   }
 
@@ -69,6 +79,7 @@ router.post('/verify', async (req, res) => {
     // Fetch user details based on decoded token
     const user = await User.findById(decoded.id);
     if (!user) {
+      console.log('User not found');
       return res.status(404).json({ message: 'User not found' });
     }
 
