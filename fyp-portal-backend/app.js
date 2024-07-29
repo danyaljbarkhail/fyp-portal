@@ -7,7 +7,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin:{""}, // Adjust the frontend URL
+  origin:{"https://fyp-portal-server.vercel.app"}, // Adjust the frontend URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
