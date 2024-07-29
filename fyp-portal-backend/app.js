@@ -7,7 +7,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin:{"https://fyp-portal-client.vercel.app"}, // Adjust the frontend URL
+  origin: process.env.FRONTEND_URL || 'https://fyp-portal-client.vercel.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
@@ -18,11 +18,11 @@ const MONGO_URI = 'mongodb+srv://danyaljk7:eL9wg8FlXK1x2WlC@fyp-portal.cq6coxu.m
 
 mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected'))
-  .catch(err => console.error('MongoDB connection error:', err));
-//Default Api
-app.get("/", (req, res) > {
-res.json("Hello");
-});
+  .catch(err => {
+    console.error('MongoDB connection error:', err);
+    process.exit(1); // Exit process with failure
+  });
+
 // Routes
 const authRoutes = require('./routes/auth');
 const supervisorRoutes = require('./routes/supervisors');
