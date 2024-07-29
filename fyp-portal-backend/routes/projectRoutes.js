@@ -11,7 +11,7 @@ const {
   getProjectById,
   createComment,
   getCommentsByProjectId
-} = require('../controllers/projectController');
+} = require('../Controllers/projectController');
 const messageRoutes = require('./messageRoutes');
 const router = express.Router();
 
