@@ -14,7 +14,7 @@ app.use(cors({
 app.use(express.json());
 
 // Connect to MongoDB
-const MONGO_URI = 'your-mongodb-connection-string-here'; // Replace with your actual MongoDB connection string
+const MONGO_URI = 'mongodb+srv://danyaljk7:eL9wg8FlXK1x2WlC@fyp-portal.cq6coxu.mongodb.net/?retryWrites=true&w=majority&appName=fyp-portal'; // Replace with your actual MongoDB connection string
 
 mongoose.connect(MONGO_URI)
   .then(() => console.log('MongoDB connected'))
