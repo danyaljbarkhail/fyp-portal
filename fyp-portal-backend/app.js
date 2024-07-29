@@ -18,7 +18,10 @@ const MONGO_URI = 'mongodb+srv://danyaljk7:eL9wg8FlXK1x2WlC@fyp-portal.cq6coxu.m
 mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
-
+//Default Api
+app.get("/", (req, res) > {
+res.json("Hello");
+})
 // Routes
 const authRoutes = require('./routes/auth');
 const supervisorRoutes = require('./routes/supervisors');
