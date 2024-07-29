@@ -7,9 +7,8 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: 'https://fyp-portal-client.vercel.app', // Updated frontend URL
+  origin: 'https://fyp-portal-client.vercel.app', // Adjust the frontend URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 app.use(express.json());
 
@@ -18,10 +17,10 @@ const MONGO_URI = 'mongodb+srv://danyaljk7:eL9wg8FlXK1x2WlC@fyp-portal.cq6coxu.m
 
 mongoose.connect(MONGO_URI)
   .then(() => console.log('MongoDB connected'))
-  .catch(err => {
-    console.error('MongoDB connection error:', err);
-    process.exit(1); // Exit process with failure
-  });
+  .catch(err => console.error('MongoDB connection error:', err));
+
+// JWT Secret
+const JWT_SECRET = 'your_jwt_secret'; // Replace with your actual JWT secret
 
 // Routes
 const authRoutes = require('./routes/auth');
@@ -31,7 +30,10 @@ const meetingRoutes = require('./routes/meetings');
 const taskRoutes = require('./routes/taskRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 
-app.use('/api/auth', authRoutes);
+app.use('/api/auth', (req, res, next) => {
+  req.JWT_SECRET = JWT_SECRET;
+  next();
+}, authRoutes);
 app.use('/api/supervisors', supervisorRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/meetings', meetingRoutes);
@@ -44,8 +46,8 @@ app.use((err, req, res, next) => {
   res.status(500).send('Something broke!');
 });
 
-app.get('/', (req, res) => {
-  res.send('Server is running');
+app.get("/", (req, res) => {
+  res.json("Hello");
 });
 
 module.exports = app;
