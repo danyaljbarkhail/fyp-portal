@@ -9,6 +9,7 @@ const app = express();
 app.use(cors({
   origin:{""}, // Adjust the frontend URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 app.use(express.json());
 
