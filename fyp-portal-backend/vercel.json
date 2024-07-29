@@ -5,7 +5,7 @@
       "src": "server.js",
       "use": "@vercel/node",
       "config": {
-        "maxDuration": 30 // Increase the duration if necessary
+        "maxDuration": 60 // Increase the duration if necessary
       }
     }
   ],
