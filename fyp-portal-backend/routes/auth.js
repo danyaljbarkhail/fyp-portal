@@ -9,12 +9,16 @@ const router = express.Router();
 router.post('/register', async (req, res) => {
   const { username, password, role } = req.body;
 
+  console.log('Registering user:', username, role);
+
   try {
     const user = new User({ username, password, role });
     await user.save();
     const token = jwt.sign({ id: user._id, role: user.role }, req.JWT_SECRET, { expiresIn: '1d' });
     res.status(201).json({ token });
+    console.log('User registered successfully:', username);
   } catch (error) {
+    console.error('Error registering user:', error);
     res.status(400).json({ message: error.message });
   }
 });
@@ -22,6 +26,8 @@ router.post('/register', async (req, res) => {
 // Route to login
 router.post('/login', async (req, res) => {
   const { username, password, role } = req.body;
+
+  console.log('Logging in user:', username, role);
 
   try {
     const user = await User.findOne({ username });
@@ -39,7 +45,9 @@ router.post('/login', async (req, res) => {
 
     // Return token as JSON response
     res.json({ token });
+    console.log('User logged in successfully:', username);
   } catch (error) {
+    console.error('Error logging in user:', error);
     res.status(500).json({ message: 'Server error' });
   }
 });
@@ -47,6 +55,8 @@ router.post('/login', async (req, res) => {
 // Route to verify token
 router.post('/verify', async (req, res) => {
   const { token } = req.body;
+
+  console.log('Verifying token:', token);
 
   if (!token) {
     return res.status(401).json({ message: 'No token provided' });
@@ -64,6 +74,7 @@ router.post('/verify', async (req, res) => {
 
     // Token is valid, return user details
     res.json({ user });
+    console.log('Token verified successfully:', decoded.id);
   } catch (error) {
     // Token verification failed
     console.error('Token verification failed:', error);
