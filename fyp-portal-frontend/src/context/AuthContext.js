@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async ({ username, role }) => {
     try {
-      const response = await axios.post('http://localhost:3000/api/auth/verify', {
+      const response = await axios.post('https://fyp-portal-server.vercel.app/api/auth/verify', {
         token: localStorage.getItem('token'),
       });
 
@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      axios.post('http://localhost:3000/api/auth/verify', { token })
+      axios.post('https://fyp-portal-server.vercel.app/api/auth/verify', { token })
         .then(response => {
           const storedUser = localStorage.getItem('user');
           if (storedUser) {
