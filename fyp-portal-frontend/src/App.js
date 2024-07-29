@@ -26,6 +26,15 @@ import { AuthProvider } from './context/AuthContext';
 import { ProjectRequestProvider } from './context/ProjectRequestContext';
 import AdminDashboardStudent from './components/AdminDashboardStudent';
 import Comments from './components/Comments'; // Import Comments component
+import axios from 'axios'
+
+axios.defaults.withCredentials = true;
+const handleSubmit = (e) => {
+e.preventDefault();
+axios.post('https://fyp-portal-server.vercel.app/', {username, password, role})
+.then(result => console.log(result))
+.catch(err => console.log(err))
+}
 
 const App = () => {
   return (
